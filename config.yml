@@ -1,1 +1,14 @@
+---
+# Prep needed: 
+# sudo apt-get install -y yq
 
+backup_destination: "/home/backup/"
+backup_naming: ""
+
+backup_files: 
+  - { src_path: ,dst_path: }
+  - { src_path: ,dst_path: }
+  - { src_path: ,dst_path: }
+
+backup_dbs:
+  - { db_name: , db_user:, db_password:, dst_path: }
