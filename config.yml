@@ -2,9 +2,17 @@
 # Prep needed: 
 # sudo apt-get install -y yq
 
+# This file defines what files/directories and databases should be backed up.
+# This file and the restore.sh is then included inside the backup folder to be read on the restore process.
+# This enables backward compatibility from this script itself.
 backup_destination: "/backup/path"
-backup_naming: "..."
+restore_script: "restore.sh/            # relative path inside the backup_destination_dir
 
+backup_tar_naming: ""                    
+
+# define files or directories to backup
+# if src parameter ends with a / it means the full directory should be backed up.
+# - { src: "<<abs. path on the system>>, dst: "<<path inside $backup_destination<<path>>" }
 backup_files: 
   - { src: "./data", dst: "data/" }
   - { src: "./data2", dst: "data/" }
