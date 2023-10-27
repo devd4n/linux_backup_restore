@@ -15,16 +15,42 @@ function backup_dirs {
 
   # go through each index and do stuff with source and destination path
   for index in ${!keyindizes[@]}; do
+    # get source path from current instance from config.yml
     src=$(yq -r ".backup_files[$index].src" config.yml)
+    # get source path from current instance from config.yml
     dst=$(yq -r ".backup_files[$index].dst" config.yml)
+    if $dst == "" 
+    then
+      dst=$(tr -s / _ <<< "$dst")
+    fi
+    # generate full dst path
     dst="$backup_temp$dst"
     echo "backup::: src=$src > dst=$dst"
+    # override old destination files with files from source
     rsync -a -rvv --delete $src $dst
   done
 }
 
 function backup_files {
   #TODO: Copy from backup_dirs add it to config.yml
+}
+
+function backup_files_dirs {
+    # extract indices the backup_file array stores to an array (0 1 2 ...)
+  keyindizes=($(yq -r '.backup_files | to_entries| .[] | .key ' config.yml))
+
+  # go through each index and do stuff with source and destination path
+  for index in ${!keyindizes[@]}; do
+    # get source path from current instance from config.yml
+    src=$(yq -r ".backup_files[$index].src" config.yml)
+    # get source path from current instance from config.yml
+    dst=$(yq -r ".backup_files[$index].dst" config.yml)
+    # generate full dst path
+    dst="$backup_temp$dst"
+    echo "backup::: src=$src > dst=$dst"
+    # override old destination files with files from source
+    rsync -a -rvv --delete $src $dst
+  done
 }
 
 function backup_dbs {
