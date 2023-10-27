@@ -6,9 +6,10 @@
 # This file and the restore.sh is then included inside the backup folder to be read on the restore process.
 # This enables backward compatibility from this script itself.
 backup_destination: "/backup/path"
-restore_script: "restore.sh/            # relative path inside the backup_destination_dir
+# relative path inside the backup_destination_dir
+restore_script: "restore.sh/
 
-backup_tar_naming: ""                    
+backup_tar_naming: "backup.tar"                    
 
 # define files or directories to backup
 # if src parameter ends with a / it means the full directory should be backed up.
