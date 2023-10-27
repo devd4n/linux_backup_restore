@@ -11,13 +11,20 @@ restore_script: "restore.sh/
 
 backup_tar_naming: "backup.tar"                    
 
-# define files or directories to backup
+# define files to backup
 # if src parameter ends with a / it means the full directory should be backed up.
 # - { src: "<<abs. path on the system>>, dst: "<<path inside $backup_destination<<path>>" }
 backup_files: 
   - { src: "./data", dst: "data/" }
   - { src: "./data2", dst: "data/" }
   - { src: "./data3", dst: "data/" }
+
+# define directories to backup
+# if src parameter ends with "/" only the content of the directory will be backed up.
+# Note: this can be a problem when trying to restore and the folder didn't exists
+# - { src: "<<abs. path on the system>>, dst: "<<path inside $backup_destination<<path>>" }
+backup_dirs:
+  - { src: "./data", dst: "data/" }
 
 backup_dbs:
   - { db_name: "testdb", db_user: "testuser", db_password:"dbpassword", dst_path:"db_test" }
